@@ -16,7 +16,9 @@ async function startServer(conn: string) {
     await mongoose.connect(conn);
     await seedAdmin();
     const server = http.createServer(app);
-    server.listen(port);
+    server.listen(port, () => {
+      logger.info(`Server started on port: ${port}`);
+    });
     setupSocket(server);
   } catch (error) {
     logger.error(`Error starting the server, Error is ${error}. Exiting the process...!!`);
